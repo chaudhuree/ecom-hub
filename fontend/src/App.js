@@ -1,15 +1,20 @@
 import "antd/dist/antd.min.css";
+import axios from "axios";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import BillsPage from "./pages/BillsPage";
 import CartPage from "./pages/CartPage";
+import CategoryPage from "./pages/CategoryPage";
 import CutomerPage from "./pages/CutomerPage";
 import Homepage from "./pages/Homepage";
 import ItemPage from "./pages/ItemPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import CategoryPage from "./pages/CategoryPage";
 
 function App() {
+  axios.defaults.headers.common["Authorization"] = JSON.parse(
+    localStorage.getItem("auth")
+  ).token;
+  axios.defaults.baseURL = "http://localhost:5000/api/v1";
   return (
     <>
       <BrowserRouter>

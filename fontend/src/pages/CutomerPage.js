@@ -20,7 +20,7 @@ const CutomerPage = () => {
         type: "SHOW_LOADING",
       });
       const { data } = await axios.get(
-        "http://localhost:5000/api/bills/get-bills"
+        "/get-bills"
       );
       setBillsData(data);
       dispatch({ type: "HIDE_LOADING" });
@@ -36,7 +36,7 @@ const CutomerPage = () => {
         type: "SHOW_LOADING",
       });
       const { data } = await axios.get(
-        "http://localhost:5000/api/users/allusers"
+        "/allusers"
       );
       setUsersData(data);
       dispatch({ type: "HIDE_LOADING" });

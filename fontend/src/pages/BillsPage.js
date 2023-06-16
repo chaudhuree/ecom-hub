@@ -23,7 +23,7 @@ const BillsPage = () => {
       });
 
       const { data } = await axios.get(
-        "http://localhost:5000/api/bills/get-bill/" +
+        "/get-bill/" +
           JSON.parse(localStorage.getItem("auth")).user._id
       );
       setBillsData(data);

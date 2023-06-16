@@ -10,6 +10,7 @@ const Homepage = () => {
   const [selecedCategory, setSelecedCategory] = useState(null);
 
   const dispatch = useDispatch();
+  //set token to header
 
   const navigate = useNavigate();
   //useEffect for get all items
@@ -20,7 +21,7 @@ const Homepage = () => {
           type: "SHOW_LOADING",
         });
         const { data } = await axios.get(
-          "http://localhost:5000/api/items/get-item"
+          "/get-item"
         );
         setItemsData(data);
         dispatch({ type: "HIDE_LOADING" });
@@ -32,9 +33,7 @@ const Homepage = () => {
     getAllItems();
   }, [dispatch]);
 
-  //set token to header
-  axios.defaults.headers.common["Authorization"] = JSON.parse(localStorage.getItem("auth")).token;
-  
+
   //search query parameters
   const queryParams = new URLSearchParams(window.location.search);
   const myQueryParam = queryParams.get("category");

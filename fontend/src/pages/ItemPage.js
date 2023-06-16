@@ -18,9 +18,7 @@ const ItemPage = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      const { data } = await axios.get(
-        "http://localhost:5000/api/items/get-item"
-      );
+      const { data } = await axios.get("/get-item");
       setItemsData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -42,9 +40,7 @@ const ItemPage = () => {
         dispatch({
           type: "SHOW_LOADING",
         });
-        const { data } = await axios.get(
-          "http://localhost:5000/api/category/get-categories"
-        );
+        const { data } = await axios.get("/get-categories");
         setCategoriesData(data);
         dispatch({ type: "HIDE_LOADING" });
         console.log(data);
@@ -61,7 +57,7 @@ const ItemPage = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      await axios.post("http://localhost:5000/api/items/delete-item", {
+      await axios.post("/delete-item", {
         itemId: record._id,
       });
 
@@ -71,7 +67,7 @@ const ItemPage = () => {
       dispatch({ type: "HIDE_LOADING" });
     } catch (error) {
       dispatch({ type: "HIDE_LOADING" });
-      if(error.response.status === 401){
+      if (error.response.status === 401) {
         return message.error("You are not authorized to do this action");
       }
       message.error("Something went wrong");
@@ -89,8 +85,8 @@ const ItemPage = () => {
         <img src={image} alt={record.name} height="60" width="60" />
       ),
     },
-    { title: "Price", dataIndex: "price" },
-    { title: "Quantity", dataIndex: "qty" },
+    { title: "Price", dataIndex: "price", sorter: (a, b) => a.price - b.price },
+    { title: "Quantity", dataIndex: "qty", sorter: (a, b) => a.qty - b.qty },
 
     {
       title: "Actions",
@@ -122,10 +118,7 @@ const ItemPage = () => {
         dispatch({
           type: "SHOW_LOADING",
         });
-        const res = await axios.post(
-          "http://localhost:5000/api/items/add-item",
-          value
-        );
+        const res = await axios.post("/add-item", value);
         message.success("Item Added Succesfully");
         getAllItems();
         setPopupModal(false);
@@ -140,7 +133,7 @@ const ItemPage = () => {
         dispatch({
           type: "SHOW_LOADING",
         });
-        await axios.put("http://localhost:5000/api/items/edit-item", {
+        await axios.put("/edit-item", {
           ...value,
           itemId: editItem._id,
         });

@@ -8,6 +8,7 @@ const CategoryPage = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [popupModal, setPopupModal] = useState(false);
   const [popupDeleteModal, setPopupDeleteModal] = useState(false);
+  const [update, setUpdate] = useState(false);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const CategoryPage = () => {
         type: "SHOW_LOADING",
       });
       const { data } = await axios.get(
-        "http://localhost:5000/api/category/get-categories"
+        "/get-categories"
       );
       setCategoriesData(data);
       dispatch({ type: "HIDE_LOADING" });
@@ -44,7 +45,7 @@ const CategoryPage = () => {
         type: "SHOW_LOADING",
       });
       const res = await axios.post(
-        "http://localhost:5000/api/category/create-category",
+        "/create-category",
         value
       );
 
@@ -61,20 +62,30 @@ const CategoryPage = () => {
       console.log(error);
     }
   };
-
-  // delete category
-  const handleDelete = async (value) => {
-    console.log(value);
+  //update category
+  const handleUpdate = async (value) => {
     try {
       dispatch({
         type: "SHOW_LOADING",
       });
+      if (value.name && value.id) {
+        const data = await axios.put(
+          "/update-category/" + value.id,
+          { name: value.name, imageUrl: value.imageUrl }
+        );
+
+        setPopupDeleteModal(false);
+        getAllCategories();
+        setUpdate(false);
+        dispatch({ type: "HIDE_LOADING" });
+        return message.success("Category Updated Succesfully");
+      }
       const { data } = await axios.delete(
-        "http://localhost:5000/api/category/delete-category/" + value.id
+        "/delete-category/" + value.id
       );
-      console.log("data", data);
 
       message.success("Category Deleted Succesfully");
+
       getAllCategories();
       setPopupDeleteModal(false);
       dispatch({ type: "HIDE_LOADING" });
@@ -88,6 +99,35 @@ const CategoryPage = () => {
     }
   };
 
+  // delete category
+  // const handleDelete = async (value) => {
+  //   try {
+  //     dispatch({
+  //       type: "SHOW_LOADING",
+  //     });
+  //     const { data } = await axios.delete(
+  //       "http://localhost:5000/api/category/delete-category/" + value.id
+  //     );
+  //     console.log("data", data);
+
+  //     message.success("Category Deleted Succesfully");
+  //     getAllCategories();
+  //     setPopupDeleteModal(false);
+  //     dispatch({ type: "HIDE_LOADING" });
+  //   } catch (error) {
+  //     dispatch({ type: "HIDE_LOADING" });
+  //     if (error.response.status === 401) {
+  //       return message.error("You are not authorized to do this action");
+  //     }
+  //     message.error("Something Went Wrong");
+  //     console.log(error);
+  //   }
+  // };
+  const setUpdateHandler = (e) => {
+    if (e.target.value !== null) {
+      setUpdate(true);
+    }
+  };
   return (
     <DefaultLayout>
       <h1 className="text-success border-bottom pb-2 text-center mb-5">
@@ -95,13 +135,12 @@ const CategoryPage = () => {
       </h1>
       {admin && (
         <>
-          {" "}
           <div className="d-flex justify-content-between">
             <Button type="primary" onClick={() => setPopupModal(true)}>
               Add Category
             </Button>
             <Button type="danger" onClick={() => setPopupDeleteModal(true)}>
-              Delete Category
+              Update Category
             </Button>
           </div>
         </>
@@ -154,14 +193,14 @@ const CategoryPage = () => {
       )}
       {popupDeleteModal && (
         <Modal
-          title={"Delete Category"}
+          title={"Update Category"}
           visible={popupDeleteModal}
           onCancel={() => {
             setPopupDeleteModal(false);
           }}
           footer={false}
         >
-          <Form layout="vertical" onFinish={handleDelete}>
+          <Form layout="vertical" onFinish={handleUpdate}>
             <Form.Item name="id" label="Category">
               <Select>
                 {categoriesData.map((category) => (
@@ -171,9 +210,18 @@ const CategoryPage = () => {
                 ))}
               </Select>
             </Form.Item>
+            <Form.Item name="name" label="Updated Name">
+              <Input
+                placeholder="Enter Category Name"
+                onChange={setUpdateHandler}
+              />
+            </Form.Item>
+            <Form.Item name="imageUrl" label="Image">
+              <Input />
+            </Form.Item>
             <div className="d-flex justify-content-end">
               <Button type="primary" htmlType="submit">
-                DELETE
+                {update ? "UPDATE" : "DELETE"}
               </Button>
             </div>
           </Form>

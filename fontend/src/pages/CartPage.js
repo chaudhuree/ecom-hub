@@ -35,7 +35,7 @@ const CartPage = () => {
   const getClientToken = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:5000/api/bills/braintree/token"
+        "/braintree/token"
       );
       setClientToken(data.clientToken);
     } catch (err) {
@@ -54,7 +54,7 @@ const CartPage = () => {
           type: "SHOW_LOADING",
         });
         const { data } = await axios.get(
-          "http://localhost:5000/api/items/get-item"
+          "/get-item"
         );
         setItemsData(data);
         dispatch({ type: "HIDE_LOADING" });
@@ -158,7 +158,7 @@ const CartPage = () => {
         userId: JSON.parse(localStorage.getItem("auth")).user._id,
       };
       // console.log(newObject);
-      await axios.post("http://localhost:5000/api/bills/add-bills", newObject, {
+      await axios.post("/add-bills", newObject, {
         headers: {
           Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
         },
@@ -187,7 +187,7 @@ const CartPage = () => {
         userId: JSON.parse(localStorage.getItem("auth")).user._id,
       };
       // console.log(newObject);
-      await axios.post("http://localhost:5000/api/bills/add-bills", newObject, {
+      await axios.post("/add-bills", newObject, {
         headers: {
           Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
         },

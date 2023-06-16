@@ -13,7 +13,7 @@ const Login = () => {
         type: "SHOW_LOADING",
       });
       const res = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "/login",
         value
       );
       if (res.status === 201) {

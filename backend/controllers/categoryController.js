@@ -29,6 +29,8 @@ const getCategory = async (req, res) => {
 // update category
 const updateCategory = async (req, res) => {
   try {
+    console.log(req.body, "req.body");
+
     const categoryUpdate = await Category.findByIdAndUpdate(
       req.params.id,
       req.body,
