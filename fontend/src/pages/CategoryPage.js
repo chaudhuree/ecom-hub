@@ -11,7 +11,10 @@ const CategoryPage = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
+  //set token to header
+  axios.defaults.headers.common["Authorization"] = JSON.parse(
+    localStorage.getItem("auth")
+  ).token;
   //useEffect for categories
   const getAllCategories = async () => {
     try {
@@ -49,6 +52,9 @@ const CategoryPage = () => {
       dispatch({ type: "HIDE_LOADING" });
     } catch (error) {
       dispatch({ type: "HIDE_LOADING" });
+      if (error.response.status === 401) {
+        return message.error("You are not authorized to do this action");
+      }
       message.error("Something Went Wrong");
       console.log(error);
     }
@@ -72,6 +78,9 @@ const CategoryPage = () => {
       dispatch({ type: "HIDE_LOADING" });
     } catch (error) {
       dispatch({ type: "HIDE_LOADING" });
+      if (error.response.status === 401) {
+        return message.error("You are not authorized to do this action");
+      }
       message.error("Something Went Wrong");
       console.log(error);
     }
@@ -79,13 +88,14 @@ const CategoryPage = () => {
 
   return (
     <DefaultLayout>
-    <h1 className="text-success border-bottom pb-2 text-center mb-5">Category</h1>
+      <h1 className="text-success border-bottom pb-2 text-center mb-5">
+        Category
+      </h1>
       <div className="d-flex justify-content-between">
-        
         <Button type="primary" onClick={() => setPopupModal(true)}>
           Add Category
         </Button>
-        <Button type="danger"  onClick={() => setPopupDeleteModal(true)}>
+        <Button type="danger" onClick={() => setPopupDeleteModal(true)}>
           Delete Category
         </Button>
       </div>
@@ -156,7 +166,7 @@ const CategoryPage = () => {
             </Form.Item>
             <div className="d-flex justify-content-end">
               <Button type="primary" htmlType="submit">
-                SAVE
+                DELETE
               </Button>
             </div>
           </Form>

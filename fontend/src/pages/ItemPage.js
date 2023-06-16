@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Form, Input,InputNumber, Modal, Select, Table, message } from "antd";
+import { Button, Form, Input, Modal, Select, Table, message } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,9 @@ const ItemPage = () => {
   const [popupModal, setPopupModal] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [categoriesData, setCategoriesData] = useState([]);
+  axios.defaults.headers.common["Authorization"] = JSON.parse(
+    localStorage.getItem("auth")
+  ).token;
   const getAllItems = async () => {
     try {
       dispatch({
@@ -61,13 +64,17 @@ const ItemPage = () => {
       await axios.post("http://localhost:5000/api/items/delete-item", {
         itemId: record._id,
       });
+
       message.success("Item Deleted Succesfully");
       getAllItems();
       setPopupModal(false);
       dispatch({ type: "HIDE_LOADING" });
     } catch (error) {
       dispatch({ type: "HIDE_LOADING" });
-      message.error("Something Went Wrong");
+      if(error.response.status === 401){
+        return message.error("You are not authorized to do this action");
+      }
+      message.error("Something went wrong");
       console.log(error);
     }
   };

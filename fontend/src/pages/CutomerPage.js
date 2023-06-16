@@ -12,6 +12,8 @@ const CutomerPage = () => {
   const [popupModal, setPopupModal] = useState(false);
   const [selectedBill, setSelectedBill] = useState(null);
   const dispatch = useDispatch();
+    //set token to header
+    axios.defaults.headers.common["Authorization"] = JSON.parse(localStorage.getItem("auth")).token;
   const getAllBills = async () => {
     try {
       dispatch({

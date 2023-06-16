@@ -12,6 +12,10 @@ const BillsPage = () => {
   const [billsData, setBillsData] = useState([]);
   const [popupModal, setPopupModal] = useState(false);
   const [selectedBill, setSelectedBill] = useState(null);
+  //set token to header
+  axios.defaults.headers.common["Authorization"] = JSON.parse(
+    localStorage.getItem("auth")
+  ).token;
   const getAllBills = async () => {
     try {
       dispatch({
@@ -20,7 +24,7 @@ const BillsPage = () => {
 
       const { data } = await axios.get(
         "http://localhost:5000/api/bills/get-bill/" +
-          JSON.parse(localStorage.getItem("auth"))._id
+          JSON.parse(localStorage.getItem("auth")).user._id
       );
       setBillsData(data);
       dispatch({ type: "HIDE_LOADING" });

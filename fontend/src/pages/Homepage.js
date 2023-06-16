@@ -32,6 +32,9 @@ const Homepage = () => {
     getAllItems();
   }, [dispatch]);
 
+  //set token to header
+  axios.defaults.headers.common["Authorization"] = JSON.parse(localStorage.getItem("auth")).token;
+  
   //search query parameters
   const queryParams = new URLSearchParams(window.location.search);
   const myQueryParam = queryParams.get("category");

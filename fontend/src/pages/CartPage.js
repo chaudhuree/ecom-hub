@@ -19,6 +19,8 @@ const CartPage = () => {
   const [instance, setInstance] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+    //set token to header
+    axios.defaults.headers.common["Authorization"] = JSON.parse(localStorage.getItem("auth")).token;
   const { cartItems } = useSelector((state) => state.rootReducer);
   const data = JSON.parse(localStorage.getItem("auth"));
   console.log("user", data.user.name);
