@@ -61,7 +61,7 @@ const CutomerPage = () => {
       dataIndex: "customerName",
     },
     { title: "Contact No", dataIndex: "customerNumber" },
-    { title: "Total Amount", dataIndex: "totalAmount" },
+    { title: "Total Amount", dataIndex: "totalAmount" ,sorter: (a, b) => a.totalAmount - b.totalAmount},
     {
       title: "Actions",
       dataIndex: "_id",
@@ -97,7 +97,7 @@ const CutomerPage = () => {
     <DefaultLayout>
       <h1 className="pb-4 text-danger text-center">Cutomer Page</h1>
       <h5 className="text-success border-bottom mb-3 mx-4">ORDERS:</h5>
-      <Table columns={columns} dataSource={billsData} bordered    pagination={{
+      <Table columns={columns} dataSource={billsData.reverse()} bordered    pagination={{
         pageSize: 4,
       }}/>
       

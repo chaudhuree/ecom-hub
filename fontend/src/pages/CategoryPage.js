@@ -11,6 +11,8 @@ const CategoryPage = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+  //check admin
+  const admin = JSON.parse(localStorage.getItem("auth")).user.role === 1;
   //set token to header
   axios.defaults.headers.common["Authorization"] = JSON.parse(
     localStorage.getItem("auth")
@@ -91,14 +93,19 @@ const CategoryPage = () => {
       <h1 className="text-success border-bottom pb-2 text-center mb-5">
         Category
       </h1>
-      <div className="d-flex justify-content-between">
-        <Button type="primary" onClick={() => setPopupModal(true)}>
-          Add Category
-        </Button>
-        <Button type="danger" onClick={() => setPopupDeleteModal(true)}>
-          Delete Category
-        </Button>
-      </div>
+      {admin && (
+        <>
+          {" "}
+          <div className="d-flex justify-content-between">
+            <Button type="primary" onClick={() => setPopupModal(true)}>
+              Add Category
+            </Button>
+            <Button type="danger" onClick={() => setPopupDeleteModal(true)}>
+              Delete Category
+            </Button>
+          </div>
+        </>
+      )}
       <div className="d-flex flex-wrap justify-content-center align-items-center category-block">
         {categoriesData.map((category) => (
           <div

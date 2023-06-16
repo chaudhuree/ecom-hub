@@ -54,7 +54,7 @@ const BillsPage = () => {
     { title: "Contact No", dataIndex: "customerNumber" },
     { title: "Subtotal", dataIndex: "subTotal" },
     { title: "Tax", dataIndex: "tax" },
-    { title: "Total Amount", dataIndex: "totalAmount" },
+    { title: "Total Amount", dataIndex: "totalAmount" ,sorter: (a, b) => a.totalAmount - b.totalAmount},
 
     {
       title: "Actions",
