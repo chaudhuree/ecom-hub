@@ -16,7 +16,13 @@ const Login = () => {
         "http://localhost:5000/api/users/login",
         value
       );
-      console.log("res", res.data);
+      if (res.status === 201) {
+        message.error(res.data.error);
+        dispatch({
+          type: "HIDE_LOADING",
+        });
+        return;
+      }
 
       dispatch({ type: "HIDE_LOADING" });
       message.success("user login Succesfully");

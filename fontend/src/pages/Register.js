@@ -13,7 +13,18 @@ const Register = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      await axios.post("http://localhost:5000/api/users/register", value);
+      const data = await axios.post(
+        "http://localhost:5000/api/users/register",
+        value
+      );
+      if (data.status === 201) {
+        message.error(data.data.error);
+        dispatch({
+          type: "HIDE_LOADING",
+        });
+        return;
+      }
+
       message.success("Register Succesfully");
       navigate("/login");
       dispatch({ type: "HIDE_LOADING" });
