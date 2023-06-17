@@ -1,27 +1,33 @@
 ## postman data
+
 [ecom backend testing](https://documenter.getpostman.com/view/20773865/2s93shzpVW)
 
 ## REPOSITORY LINK:
 
->server side: https://github.com/chaudhuree/ecom-hub/tree/main/backend
+> server side: https://github.com/chaudhuree/ecom-hub/tree/main/backend
 
->client side:https://github.com/chaudhuree/ecom-hub/tree/main/fontend
+> client side:https://github.com/chaudhuree/ecom-hub/tree/main/fontend
 
 ## DEPLOYED VERSION:
 
 > backend-server : https://ecom-hub.onrender.com
 
->fontend-server : https://ecom-lo3k1yqfj-chaudhuree.vercel.app
+> fontend-server : https://ecom-lo3k1yqfj-chaudhuree.vercel.app
 
->fontend-server(alternative) : https://chaudhuree-ecomhub.netlify.app
+> fontend-server(alternative) : https://chaudhuree-ecomhub.netlify.app
 
-**
+\*\*
 
 ## DEMO USER ACCOUNT(test purpose):
 
-**
+\*\*
 
-*(Admin Mode)*
+_(Admin Mode)_
 
     userId: chaudhuree
     password: 123456
+
+_(User Mode)_
+
+        userId: sohan
+        password: 123456
