@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "startDev": "nodemon server.js",
-    "seed": "node seeder.js"
+    "seed": "node seeder.js",
+    "build": "npm install"
   },
   "author": "chaudhuree",
   "license": "MIT",
