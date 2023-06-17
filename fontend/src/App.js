@@ -7,21 +7,26 @@ import CategoryPage from "./pages/CategoryPage";
 import CutomerPage from "./pages/CutomerPage";
 import Homepage from "./pages/Homepage";
 import ItemPage from "./pages/ItemPage";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import SingleItemPage from "./pages/SingleItemPage";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
+import SingleItemPage from "./pages/SingleItemPage";
 
 function App() {
   axios.defaults.headers.common["Authorization"] = JSON.parse(
     localStorage.getItem("auth")
   )?.token;
-  axios.defaults.baseURL = "http://localhost:5000/api/v1";
+  axios.defaults.baseURL = "https://ecom-hub.onrender.com/api/v1";
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ProtectedRoute><Homepage /></ProtectedRoute>} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Homepage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/category" element={<CategoryPage />} />
           <Route
             path="/items"
@@ -55,7 +60,14 @@ function App() {
               </AdminRoute>
             }
           />
-          <Route path="/item/:id" element={<ProtectedRoute><SingleItemPage /></ProtectedRoute>} />
+          <Route
+            path="/item/:id"
+            element={
+              <ProtectedRoute>
+                <SingleItemPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<LoginRegisterPage />} />
 
           <Route path="/register" element={<LoginRegisterPage />} />
