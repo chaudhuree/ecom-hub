@@ -76,7 +76,7 @@ const DefaultLayout = ({ children }) => {
             icon={<LogoutOutlined />}
             onClick={() => {
               localStorage.removeItem("auth");
-              navigate("/login");
+              navigate("/loginreg");
             }}
           >
             Logout

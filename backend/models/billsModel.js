@@ -14,6 +14,14 @@ const billSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    customerEmail:{
+      type: String,
+      required: true,
+    },
+    customerAddress: {
+      type: String,
+      required: true,
+    },
     totalAmount: {
       type: Number,
       required: true,

@@ -1,9 +1,9 @@
-import { Table,Modal,Button } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
-import { useReactToPrint } from "react-to-print";
+import { Button, Modal, Table } from "antd";
 import axios from "axios";
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useReactToPrint } from "react-to-print";
 import DefaultLayout from "../components/DefaultLayout";
 const CutomerPage = () => {
   const componentRef = useRef();
@@ -12,16 +12,16 @@ const CutomerPage = () => {
   const [popupModal, setPopupModal] = useState(false);
   const [selectedBill, setSelectedBill] = useState(null);
   const dispatch = useDispatch();
-    //set token to header
-    axios.defaults.headers.common["Authorization"] = JSON.parse(localStorage.getItem("auth")).token;
+  //set token to header
+  // axios.defaults.headers.common["Authorization"] = JSON.parse(
+  //   localStorage.getItem("auth")
+  // ).token;
   const getAllBills = async () => {
     try {
       dispatch({
         type: "SHOW_LOADING",
       });
-      const { data } = await axios.get(
-        "/get-bills"
-      );
+      const { data } = await axios.get("/get-bills");
       setBillsData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -35,9 +35,7 @@ const CutomerPage = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      const { data } = await axios.get(
-        "/allusers"
-      );
+      const { data } = await axios.get("/allusers");
       setUsersData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -61,7 +59,11 @@ const CutomerPage = () => {
       dataIndex: "customerName",
     },
     { title: "Contact No", dataIndex: "customerNumber" },
-    { title: "Total Amount", dataIndex: "totalAmount" ,sorter: (a, b) => a.totalAmount - b.totalAmount},
+    {
+      title: "Total Amount",
+      dataIndex: "totalAmount",
+      sorter: (a, b) => a.totalAmount - b.totalAmount,
+    },
     {
       title: "Actions",
       dataIndex: "_id",
@@ -78,7 +80,6 @@ const CutomerPage = () => {
       ),
     },
   ];
-
 
   const userColumns = [
     { title: "ID ", dataIndex: "_id" },
@@ -97,10 +98,15 @@ const CutomerPage = () => {
     <DefaultLayout>
       <h1 className="pb-4 text-danger text-center">Cutomer Page</h1>
       <h5 className="text-success border-bottom mb-3 mx-4">ORDERS:</h5>
-      <Table columns={columns} dataSource={billsData.reverse()} bordered    pagination={{
-        pageSize: 4,
-      }}/>
-      
+      <Table
+        columns={columns}
+        dataSource={billsData.reverse()}
+        bordered
+        pagination={{
+          pageSize: 4,
+        }}
+      />
+
       <h5 className="text-primary border-bottom mb-3 mx-4">USERS:</h5>
       <Table
         columns={userColumns}
@@ -110,8 +116,6 @@ const CutomerPage = () => {
           pageSize: 4,
         }}
       />
-
-
 
       {popupModal && (
         <Modal
@@ -126,7 +130,6 @@ const CutomerPage = () => {
         >
           {/* ============ invoice modal start ==============  */}
           <div id="invoice-POS" ref={componentRef}>
-
             {/*End InvoiceTop*/}
             <div id="mid">
               <div className="mt-2">
@@ -188,7 +191,7 @@ const CutomerPage = () => {
                         <h2>tax</h2>
                       </td>
                       <td className="payment">
-                        <h2>${selectedBill.tax}</h2>
+                        <h2>{selectedBill.tax} tk</h2>
                       </td>
                     </tr>
                     <tr className="tabletitle">
@@ -199,7 +202,7 @@ const CutomerPage = () => {
                       </td>
                       <td className="payment">
                         <h2>
-                          <b>${selectedBill.totalAmount}</b>
+                          <b>{selectedBill.totalAmount} tk</b>
                         </h2>
                       </td>
                     </tr>
@@ -208,7 +211,6 @@ const CutomerPage = () => {
               </div>
               {/*End Table*/}
             </div>
-            
           </div>
           {/*End Invoice*/}
           <div className="d-flex justify-content-end mt-3">
@@ -216,7 +218,6 @@ const CutomerPage = () => {
               Print
             </Button>
           </div>
-         
         </Modal>
       )}
     </DefaultLayout>

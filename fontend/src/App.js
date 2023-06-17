@@ -9,24 +9,57 @@ import Homepage from "./pages/Homepage";
 import ItemPage from "./pages/ItemPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import SingleItemPage from "./pages/SingleItemPage";
+import LoginRegisterPage from "./pages/LoginRegisterPage";
 
 function App() {
   axios.defaults.headers.common["Authorization"] = JSON.parse(
     localStorage.getItem("auth")
-  ).token;
+  )?.token;
   axios.defaults.baseURL = "http://localhost:5000/api/v1";
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<ProtectedRoute><Homepage /></ProtectedRoute>} />
           <Route path="/category" element={<CategoryPage />} />
-          <Route path="/items" element={<ItemPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/bills" element={<BillsPage />} />
-          <Route path="/customers" element={<CutomerPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/items"
+            element={
+              <AdminRoute>
+                <ItemPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <CartPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bills"
+            element={
+              <ProtectedRoute>
+                <BillsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/customers"
+            element={
+              <AdminRoute>
+                <CutomerPage />
+              </AdminRoute>
+            }
+          />
+          <Route path="/item/:id" element={<ProtectedRoute><SingleItemPage /></ProtectedRoute>} />
+          <Route path="/login" element={<LoginRegisterPage />} />
+
+          <Route path="/register" element={<LoginRegisterPage />} />
+          <Route path="/loginreg" element={<LoginRegisterPage />} />
         </Routes>
       </BrowserRouter>
     </>
@@ -39,6 +72,15 @@ export function ProtectedRoute({ children }) {
   if (localStorage.getItem("auth")) {
     return children;
   } else {
-    return <Navigate to="/login" />;
+    return <Navigate to="/loginreg" />;
+  }
+}
+
+export function AdminRoute({ children }) {
+  const user = JSON.parse(localStorage.getItem("auth"));
+  if (user.user?.role === 1) {
+    return children;
+  } else {
+    return <Navigate to="/" />;
   }
 }

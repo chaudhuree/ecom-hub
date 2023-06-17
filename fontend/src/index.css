@@ -48,7 +48,8 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  height: auto;
+  min-height: 45vh;
 }
 
 .register input {
@@ -56,14 +57,14 @@ body {
 }
 
 .regsiter-form {
-  background-color: rgba(98, 197, 251, 0.463);
+  background-color: #fdfdfd76;
   padding: 20px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
-.regsiter-form h1 {
+/* .regsiter-form h1 {
   text-align: center;
   background-color: rgb(2, 2, 75);
   color: white;
@@ -73,7 +74,7 @@ body {
 .regsiter-form h3 {
   color: rgb(4, 4, 113);
   text-align: center;
-}
+} */
 .category-block {
   height: 100%;
   width: 100%;

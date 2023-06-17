@@ -14,6 +14,10 @@ const itemSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
       required: true,
@@ -21,7 +25,7 @@ const itemSchema = mongoose.Schema(
     qty: {
       type: Number,
       required: true,
-    }
+    },
   },
   { timestamp: true, versionKey: false }
 );

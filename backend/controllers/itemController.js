@@ -50,9 +50,27 @@ const deleteItemController = async (req, res) => {
   }
 };
 
+//get single item
+const getSingleItemController = async (req, res) => {
+  try {
+    const id=req.params.id;
+    const data= await itemModel.findOne({_id:id});
+    if(data){
+      res.status(200).json(data);
+      return
+    }
+      res.status(201).json({error:"item not found"});
+  } catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+  };
+};
+
+
 module.exports = {
   getItemController,
   addItemController,
   editItemController,
   deleteItemController,
+  getSingleItemController,
 };

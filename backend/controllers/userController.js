@@ -6,12 +6,18 @@ require("dotenv").config();
 //register
 const registerController = async (req, res) => {
   try {
-    const { userId, password } = req.body;
-    const existingUser = await userModel.findOne({ userId });
-    if (existingUser) {
+    const { userId, password, email } = req.body;
+    const existingUserId = await userModel.findOne({ userId });
+    if (existingUserId) {
       return res
         .status(201)
         .json({ error: "User Is Already Available With This userId" });
+    }
+    const existingUserEmail = await userModel.findOne({ email });
+    if (existingUserEmail) {
+      return res
+        .status(201)
+        .json({ error: "User Is Already Available With This Email" });
     }
     //hash password
     const hashedPassword = await hashPassword(password);

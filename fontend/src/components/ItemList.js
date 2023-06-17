@@ -1,10 +1,13 @@
 import { Badge, Button, Card } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+const {useNavigate} = require("react-router-dom");
 const ItemList = ({ item }) => {
   const { cartItems } = useSelector((state) => state.rootReducer);
   const [itemInCart, setItemInCart] = useState(false);
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
   //update cart handler
   const handleAddTOCart = () => {
     dispatch({
@@ -46,8 +49,8 @@ const ItemList = ({ item }) => {
           }
         >
           <div>
-            <h6>{capitalizeFirstLetter(item.name)}</h6>
-            <h6>Price: {item.price}tk</h6>
+            <h6 className="product-name">{capitalizeFirstLetter(item.name)}</h6>
+            <h6 className="d-flex justify-content-between"><span>Price: {item.price}tk</span> <EyeOutlined className="text-primary" onClick={()=>Navigate(`/item/${item._id}`)}/></h6>
           </div>
           <div className="item-button">
             <Button

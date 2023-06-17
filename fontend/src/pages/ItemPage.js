@@ -10,9 +10,9 @@ const ItemPage = () => {
   const [popupModal, setPopupModal] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [categoriesData, setCategoriesData] = useState([]);
-  axios.defaults.headers.common["Authorization"] = JSON.parse(
-    localStorage.getItem("auth")
-  ).token;
+  // axios.defaults.headers.common["Authorization"] = JSON.parse(
+  //   localStorage.getItem("auth")
+  // ).token;
   const getAllItems = async () => {
     try {
       dispatch({
@@ -195,6 +195,9 @@ const ItemPage = () => {
               </Select>
             </Form.Item>
             <Form.Item name="qty" label="Quantity">
+              <Input />
+            </Form.Item>
+            <Form.Item name="description" label="Description">
               <Input />
             </Form.Item>
 

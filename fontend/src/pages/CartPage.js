@@ -20,9 +20,9 @@ const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //set token to header
-  axios.defaults.headers.common["Authorization"] = JSON.parse(
-    localStorage.getItem("auth")
-  ).token;
+  // axios.defaults.headers.common["Authorization"] = JSON.parse(
+  //   localStorage.getItem("auth")
+  // ).token;
   const { cartItems } = useSelector((state) => state.rootReducer);
   const data = JSON.parse(localStorage.getItem("auth"));
   console.log("user", data.user.name);
@@ -30,6 +30,8 @@ const CartPage = () => {
   let customerData = {
     customerName: data.user.name,
     customerNumber: data.user.contactNumber,
+    customerEmail: data.user.email,
+    customerAddress: data.user.address
   };
 
   const getClientToken = async () => {
@@ -249,9 +251,15 @@ const CartPage = () => {
             onFinish={handleSubmitCash}
           >
             <Form.Item name="customerName" label="Customer Name">
-              <Input />
+              <Input disabled="true"/>
             </Form.Item>
             <Form.Item name="customerNumber" label="Contact Number">
+              <Input />
+            </Form.Item>
+            <Form.Item name="customerEmail" label="Email">
+              <Input disabled="true"/>
+            </Form.Item>
+            <Form.Item name="customerAddress" label="Address">
               <Input />
             </Form.Item>
 
@@ -301,9 +309,15 @@ const CartPage = () => {
             onFinish={handleSubmit}
           >
             <Form.Item name="customerName" label="Customer Name">
-              <Input />
+              <Input disabled="true"/>
             </Form.Item>
             <Form.Item name="customerNumber" label="Contact Number">
+              <Input />
+            </Form.Item>
+            <Form.Item name="customerEmail" label="Email">
+              <Input disabled />
+            </Form.Item>
+            <Form.Item name="customerAddress" label="Address">
               <Input />
             </Form.Item>
 

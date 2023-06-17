@@ -13,9 +13,9 @@ const BillsPage = () => {
   const [popupModal, setPopupModal] = useState(false);
   const [selectedBill, setSelectedBill] = useState(null);
   //set token to header
-  axios.defaults.headers.common["Authorization"] = JSON.parse(
-    localStorage.getItem("auth")
-  ).token;
+  // axios.defaults.headers.common["Authorization"] = JSON.parse(
+  //   localStorage.getItem("auth")
+  // ).token;
   const getAllBills = async () => {
     try {
       dispatch({
@@ -23,8 +23,7 @@ const BillsPage = () => {
       });
 
       const { data } = await axios.get(
-        "/get-bill/" +
-          JSON.parse(localStorage.getItem("auth")).user._id
+        "/get-bill/" + JSON.parse(localStorage.getItem("auth")).user._id
       );
       setBillsData(data);
       dispatch({ type: "HIDE_LOADING" });
@@ -54,7 +53,11 @@ const BillsPage = () => {
     { title: "Contact No", dataIndex: "customerNumber" },
     { title: "Subtotal", dataIndex: "subTotal" },
     { title: "Tax", dataIndex: "tax" },
-    { title: "Total Amount", dataIndex: "totalAmount" ,sorter: (a, b) => a.totalAmount - b.totalAmount},
+    {
+      title: "Total Amount",
+      dataIndex: "totalAmount",
+      sorter: (a, b) => a.totalAmount - b.totalAmount,
+    },
 
     {
       title: "Actions",
@@ -162,7 +165,7 @@ const BillsPage = () => {
                         <h2>tax</h2>
                       </td>
                       <td className="payment">
-                        <h2>${selectedBill.tax}</h2>
+                        <h2>{selectedBill.tax} tk</h2>
                       </td>
                     </tr>
                     <tr className="tabletitle">
@@ -173,7 +176,7 @@ const BillsPage = () => {
                       </td>
                       <td className="payment">
                         <h2>
-                          <b>${selectedBill.totalAmount}</b>
+                          <b>{selectedBill.totalAmount} tk</b>
                         </h2>
                       </td>
                     </tr>
