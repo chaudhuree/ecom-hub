@@ -1,3 +1,7 @@
+decorated nicely in README.md file.
+for clear view please check Readme file.
+
+
 REPOSITORY LINK:
 server side: https://github.com/chaudhuree/ecom-hub/tree/main/backend
 client side:https://github.com/chaudhuree/ecom-hub/tree/main/fontend
